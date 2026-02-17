@@ -1,0 +1,22 @@
+class Solution:
+    def overlapInt(self, arr):
+        events = []
+
+        # Create events
+        for start, end in arr:
+            events.append((start, 1))   # +1 for start
+            events.append((end, -1))    # -1 for end
+
+        # Sort:
+        # 1) by time
+        # 2) start (+1) before end (-1) if time is same
+        events.sort(key=lambda x: (x[0], -x[1]))
+
+        max_overlap = 0
+        count = 0
+
+        for _, val in events:
+            count += val
+            max_overlap = max(max_overlap, count)
+
+        return max_overlap
