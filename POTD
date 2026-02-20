@@ -1,0 +1,24 @@
+from functools import cmp_to_key
+
+class Solution:
+    def findLargest(self, arr):
+        # Convert integers to strings
+        arr = list(map(str, arr))
+        
+        # Custom comparison function
+        def compare(a, b):
+            if a + b > b + a:
+                return -1   # a should come before b
+            elif a + b < b + a:
+                return 1    # b should come before a
+            else:
+                return 0
+        
+        # Sort using custom comparator
+        arr.sort(key=cmp_to_key(compare))
+        
+        # Join the sorted numbers
+        result = "".join(arr)
+        
+        # Edge case: if result starts with 0, return "0"
+        return "0" if result[0] == "0" else result
